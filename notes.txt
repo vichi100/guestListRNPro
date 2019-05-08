@@ -1,0 +1,324 @@
+expo build:android 
+
+369609
+
+*********TO START NODE SERVER WHICH CONNECT TO DB *********
+nohup node server1.js
+
+*********TO START NODE SERVER WHICH CONNECT TO DB ON LOCAL*********
+node --max-old-space-size=4096 server1.js
+
+********** TO START REACT-IMAGE-MAPPER ON SERVER ***********
+forever start gulpfile.js
+
+nohup npm start &
+
+********** TO START REACT-IMAGE-MAPPER ON LOCAL ***********
+npm start
+
+******** TO START INSTAMOJO SERVER ON SERVER *********
+forever start app.js
+
+******** TO START INSTAMOJO SERVER ON LOCAL *********
+nodemon start
+
+
+******** TO START PAYTM SERVER ON SERVER *********
+forever start server.js
+
+******** TO START PAYTM SERVER ON LOCAL *********
+nodemon server.js
+
+********* TO CHECK PROCESS ON PORT ********
+lsof -i:8000
+
+Error: listen EADDRINUSE: address already in use :::8000
+
+
+####### TO LIST ALL PROCESS WHICH STARTED BY FOREVER #########
+forever list 
+forever stop PID
+
+ps -aef | grep npm
+
+
+
+*******************************************
+
+
+npm install pm2 -g
+pm2 start server.js
+pm2 show server
+
+
+
+yum update mysql
+
+
+[root@guestlist react-image-mapper]# pm2 start npm start
+[PM2] Starting /usr/bin/npm in fork_mode (1 instance)
+[PM2] Done.
+[PM2] Starting /sbin/start in fork_mode (1 instance)
+[PM2] Done.
+┌────────┬────┬──────┬─────────┬────┬──────┬───────────┐
+│ Name   │ id │ mode │ status  │ ↺  │ cpu  │ memory    │
+├────────┼────┼──────┼─────────┼────┼──────┼───────────┤
+│ npm    │ 1  │ fork │ online  │ 0  │ 150% │ 11.9 MB   │
+│ server │ 0  │ fork │ online  │ 18 │ 0%   │ 29.1 MB   │
+│ start  │ 2  │ fork │ stopped │ 1  │ 0%   │ 0 B       │
+└────────┴────┴──────┴─────────┴────┴──────┴───────────┘
+ Use `pm2 show <id|name>` to get more details about an app
+
+---------- npm -----------
+npm i react-native-navigation-directions --save
+
+brew install siege
+
+siege -c10 -t1M http://192.168.43.64:6000/clubsDetails
+
+------------------ react image map ---------
+[root@guestlist home]# cd react-image-mapper/
+[root@guestlist react-image-mapper]# ls
+LICENSE.txt  README.md  ROADMAP.md  bower.json  dist  example  gulpfile.js  lib  node_modules  npm-debug.log  package-lock.json  package.json  src  test
+[root@guestlist react-image-mapper]# pwd
+/root/home/react-image-mapper
+[root@guestlist react-image-mapper]# 
+
+for every club there will be a seprate index file and exaple file
+
+************* NODE JS ***********
+First update npm,
+
+npm install -g npm@next
+
+Then update node to the next version,
+
+npm install -g node@next or npm install -g n@next or, to the latest,
+
+npm install -g node@latest or npm install -g node
+
+check after version installation,
+
+node --versionor node -v
+
+************** RESET CACHE ***********************
+
+watchman watch-del-all && rm -rf $TMPDIR/react-* && rm -rf node_modules/ && npm cache verify && npm install && npm start -- --reset-cache
+
+
+
+
+-----------------------   NOTIFICATION  -------------------
+notification:{
+  TITILE: 'title',
+  
+}
+
+
+
+
+--------------------
+
+ALTER TABLE events
+ADD offertitile CHAR(200),
+
+
+
+-------
+
+     "userid" : "9999",
+     "mobilenumber="9867614466",
+     "emai" : "vichi100@gmail.com",
+     "clubid" : data.clubid,
+     "clubname" : data.clubname,
+     "eventid" : data.eventid,
+     "eventname" : data.eventname,
+     "eventDate" : data.eventDate,
+     "ticketby" : data.ticketby,
+     "offerid" : data.offerid,
+     "tablediscount" : data.tablediscount,
+     "passdiscount" : data.passdiscount,
+     "totalprice" : this.state.totalAmount,
+     "paidamount" : this.state.totalAmountAfterDiscount,
+     "remainingamount" : this.state.remainingamount,
+     "guestlistgirlcount" : this.state.guestlistgirlcount,
+     "guestlistcouplecount" : this.state.guestlistcouplecount,
+     "passcouplecount" : this.state.passcouplecount,
+     "passstagcount" : this.state.passstagcount,
+     "tablenumber" : this.state.tablenumber,
+     "tablepx" : this.state.tablepx,
+     "transactionnumber" : "10000000000000003",//transactionnumber,
+     "paymentstatusmsg" : "success",
+     "bookingconfirm" : "yes",
+     "latlong" : data.latlong,
+
+
+
+     var bookingTimeStamp = moment();// current date
+    var bookingdate = moment().toDate();
+    var qrcode = clubid+"_"+clubname+"_"+eventid+"_"+eventdate+"_"+totalAmount+"_"+bookingTimeStamp;
+    var userid = "9999";
+    var mobilenumber="9867614466";
+    var emai = "vichi100@gmail.com";
+    var clubid = data.clubid;
+    var clubname = data.clubname;
+    var eventid = data.eventid;
+    var eventname = data.eventname;
+    var eventDate = data.eventDate;
+    var ticketby = data.ticketby;
+    var offerid = data.offerid;
+    var tablediscount = data.tablediscount;
+    var passdiscount = data.passdiscount;
+    var totalprice = this.state.totalAmount;
+    var paidamount = this.state.totalAmountAfterDiscount;
+    var remainingamount = this.state.remainingamount;
+    var guestlistgirlcount = this.state.guestlistgirlcount;
+    var guestlistcouplecount = this.state.guestlistcouplecount;
+    var passcouplecount = this.state.passcouplecount;
+    var passstagcount = this.state.passstagcount;
+    var tablenumber = this.state.tablenumber;
+    var tablepx = this.state.tablepx;
+    var transactionnumber = "10000000000000003";//transactionnumber;
+    var paymentstatusmsg = "success";
+    var bookingconfirm = "yes";
+    var latlong = data.latlong;
+
+
+
+//   CREATE TABLE bookingdetails ( bookingid  , userid , mobilenumber VARCHAR(15), email , 
+//  clubid , clubname , eventid , eventname , eventdate , 
+//  ticketby VARCHAR(15), offerid , tablediscount , passdiscount , totalprice , 
+//paidamount , 
+//  remainingamount , guestlistgirlcount , guestlistcouplecount , 
+//passstagcount , 
+//   passcouplecount , tablenumber , tablepx , transactionnumber , 
+//paymentstatusmsg VARCHAR(900), bookingconfirm , 
+//   termncondition VARCHAR(1000), latlong VARCHAR(50), qrcode , bookingdate , 
+//bookingtimestamp );
+
+
+############################################################
+
+
+CREATE TABLE ticketbookingdetails ( req.body.bookingid , req.body.userid , req.body.mobilenumber , 
+req.body.email , 
+ req.body.clubid , req.body.clubname , req.body.eventid , req.body.eventname , req.body.eventdate , 
+ req.body.postedby  ,
+ req.body.offerid , req.body.tablediscountamt , req.body.tablediscountpercentage , 
+ req.body.passdiscountamt , req.body.passdiscountpercentage , 
+ req.body.totalprice , req.body.priceafterdiscount , req.body.paidamount , 
+ req.body.remainingamount , req.body.guestlistgirlcount , req.body.guestlistcouplecount , req.body.passcouplecount , 
+  req.body.passstagcount , req.body.tablenumber ,
+  req.body.tablepx , req.body.transactionnumber , req.body.paymentstatusmsg, req.body.bookingconfirm , 
+  req.body.termncondition , req.body.latlong , req.body.qrcode , req.body.bookingdate , 
+  req.body.bookingtimestamp );
+
+
+
+  #################
+
+  [req.body.bookingid , req.body.userid , req.body.mobilenumber , 
+                    req.body.email , req.body.clubid , req.body.clubname , req.body.eventid , req.body.eventname , req.body.eventdate , 
+                    req.body.postedby  , req.body.offerid , req.body.tablediscountamt , req.body.tablediscountpercentage , 
+                    req.body.passdiscountamt , req.body.passdiscountpercentage , 
+                    req.body.totalprice , req.body.priceafterdiscount , req.body.paidamount , 
+                    req.body.remainingamount , req.body.guestlistgirlcount , req.body.guestlistcouplecount , req.body.passcouplecount , 
+                    req.body.passstagcount , req.body.tablenumber ,
+                    req.body.tablepx , req.body.transactionnumber , req.body.paymentstatusmsg, req.body.bookingconfirm , 
+                    req.body.termncondition , req.body.latlong , req.body.qrcode , req.body.bookingdate , 
+                    req.body.bookingtimestamp]
+
+
+
+
+<Text style={styles.instructions}>* Club's policies are applied on all kinds of bookings</Text>
+ <Text style={styles.instructions}>* Admission rights reserved by clubs</Text>
+
+
+
+
+ -----------------
+
+module.exports=createReactClass({
+            render:function(){
+                return(
+                    <div>
+                        <h1> the list  </h1>
+                    </div>   
+                )
+            }
+});
+
+
+
+
+                        // injectedJavaScript = {'document.getElementById('ORDER_ID').value= "${ORDER_ID}"; document.getElementById('TXN_AMOUNT').value= "${TXN_AMOUNT}"; document.getElementById('CUST_ID').value= "${CUST_ID}"; document.f1.submit()'}
+
+
+
+######### Testing #########
+1) go to table booking select table come back then select pass now book pass then check ticket details.
+2) got to pass booking then come back then book table check ticket details
+
+
+
+
+260664005963-btpvaslb1iff4bvutc0fr0b01qb948qg.apps.googleusercontent.com
+
+
+        Object.keys(ticketDataForClub).map((keyName, keyIndex) => { 
+          // use keyName to get current key's name
+          let ticketType = ticketDataForClub[keyName].type;
+          let ticketCategory = ticketDataForClub[keyName].category;
+          let passCoupleCost = 0;
+          let passStagCost = 0;
+          if (ticketType == "pass" && ticketCategory == "couple") {
+            // this.setState({ passCoupleCost: ticketDataForClub[keyName].cost });
+            passCoupleCost = ticketDataForClub[keyName].cost;
+          }
+
+          if (ticketType == "pass" && ticketCategory == "stag") {
+            passStagCost = ticketDataForClub[keyName].cost
+          }
+
+          var clubTicketData = { 
+            "guestlistGirlAvailableCount": 0, 
+            "guestListCoupleAvailableCount":0,
+            "passStagCost":passStagCost,
+            "passCoupleCost": passCoupleCost,
+          } 
+
+          // console.log("data : " + response[keyName].type);
+          // and a[keyName] to get its value
+        });
+
+
+        91 91584371265
+
+
+
+----------------
+
+import React from 'react';
+import { createStackNavigator, createAppContainer } from 'react-navigation';
+import HomeScreen from './paymentgetway/InstamojoHomeScreen';
+import InstamojoWebview from './paymentgetway/InstamojoWebView';
+
+const RootStack = createStackNavigator(
+  {
+    Home: HomeScreen,
+    InstamojoWebview: InstamojoWebview,
+  },
+  {
+    initialRouteName: 'Home',
+  }
+);
+
+// export default class App extends React.Component {
+//   render() {
+//     return <RootStack />;
+//   }
+// }
+
+const App = createAppContainer(RootStack);
+export default App;

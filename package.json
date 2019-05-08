@@ -1,0 +1,55 @@
+{
+  "main": "node_modules/expo/AppEntry.js",
+  "scripts": {
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "eject": "expo eject",
+    "test": "node ./node_modules/jest/bin/jest.js --watchAll"
+  },
+  "jest": {
+    "preset": "jest-expo"
+  },
+  "dependencies": {
+    "@expo/samples": "2.1.1",
+    "axios": "^0.18.0",
+    "create-react-class": "^15.6.3",
+    "expo": "^32.0.0",
+    "faker": "^4.1.0",
+    "firebase": "^5.9.2",
+    "install": "^0.12.2",
+    "prop-types": "^15.7.2",
+    "react": "^16.5.0",
+    "react-dom": "^16.8.6",
+    "react-fast-compare": "^2.0.4",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-32.0.0.tar.gz",
+    "react-native-app-intro-slider": "^2.0.1",
+    "react-native-calendar-strip": "^1.3.7",
+    "react-native-dialog": "^5.6.0",
+    "react-native-elements": "^1.1.0",
+    "react-native-firebase-upload": "0.0.14",
+    "react-native-gifted-chat": "0.3.0",
+    "react-native-image-header-scroll-view": "^0.10.1",
+    "react-native-image-overlay": "^0.1.2",
+    "react-native-material-cards": "^1.0.9",
+    "react-native-modal-datetime-picker": "^7.4.0",
+    "react-native-modal-filter-picker": "^1.3.4",
+    "react-native-navigation-directions": "^1.0.3",
+    "react-native-numeric-input": "^1.6.5",
+    "react-native-paper": "^2.13.0",
+    "react-native-progressive-input": "^1.1.0",
+    "react-native-qrcode": "^0.2.7",
+    "react-native-radio-buttons": "^1.0.0",
+    "react-native-smart-loading-spinner-overlay": "^1.0.2",
+    "react-native-tab-view": "^2.0.1",
+    "react-navigation": "^3.0.9",
+    "react-select": "^2.4.3",
+    "uuid": "3.3.2"
+  },
+  "devDependencies": {
+    "babel-preset-expo": "^5.0.0",
+    "jest-expo": "^32.0.0",
+    "schedule": "^0.4.0"
+  },
+  "private": true
+}
