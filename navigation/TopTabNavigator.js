@@ -19,12 +19,12 @@ const MainTopTabs = createMaterialTopTabNavigator({
         //headerTitle: "Tab 1 Screen"
      },
     },
-    Tab2: {
-      screen: ClubsListScreen,
-      navigationOptions:{
-       tabBarLabel: 'Clubs' 
-     } 
-    },
+    // Tab2: { 
+    //   screen: ClubsListScreen,
+    //   navigationOptions:{
+    //    tabBarLabel: 'Clubs' 
+    //  } 
+    // },
 
     Tab3: {
         screen: DJsListScreen,
@@ -54,4 +54,4 @@ const MainTopTabs = createMaterialTopTabNavigator({
   }
   )
 
-  export default MainTopTabs; 
+  export default MainTopTabs;   

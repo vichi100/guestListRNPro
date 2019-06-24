@@ -34,6 +34,7 @@ export default class GLogin extends React.Component {
       email:null,
       userid: null,
       expoToken: null,
+      profession: null,
     };
   }
 
@@ -99,14 +100,14 @@ export default class GLogin extends React.Component {
     }
   };
 
-  _storeCustomerData = async () => {
+  _storeCustomerData = async () => { 
     try {
       //await AsyncStorage.setItem("mobile", this.state.mobile);
       await AsyncStorage.setItem("email", this.state.email);
       await AsyncStorage.setItem("name", this.state.name);
       await AsyncStorage.setItem("photoUrl", this.state.photoUrl);
       await AsyncStorage.setItem("customerId", this.state.userid);
-      console.log("store mobile"+ mobile);
+      
     } catch (error) {
       // Error saving data
     }
@@ -129,16 +130,23 @@ export default class GLogin extends React.Component {
     }
   };
 
-  insertCustomerDetails=() =>{
+  insertCustomerDetails= async() =>{
+    
+
+    this._storeCustomerData();
+
+    var profession  = await AsyncStorage.getItem("profession");
+      this.setState({profession: profession});
+      console.log("GLogin: profession"+ profession);
+
     var postData = {
       "userid" : this.state.userid,
       "mobilenumber":this.state.mobile,
       "email" : this.state.email,
       "name" : this.state.name, 
       "expoToken": this.state.expoToken,
+      "profession": profession
     }
-
-    this._storeCustomerData();
 
 
 
@@ -151,7 +159,7 @@ export default class GLogin extends React.Component {
     //   },
     //   body:  JSON.stringify(postData)
     // })
-    return axios.post(SERVER_URL+"insertCustomerDetails", postData,  {
+    return axios.post(SERVER_URL+"insertProfessionalDetails", postData,  {
 
       headers: {
         'Content-Type': 'application/json',

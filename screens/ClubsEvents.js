@@ -56,10 +56,10 @@ const mydata = (data, eventdate) =>
     // console.log("Date : "+date.format('DD/MMM/YYYY'))
     // console.log("Data : "+JSON.stringify(data))
     isDataChanged = true;
-    return item.eventdate === eventdate.format("DD/MMM/YYYY");
+    return item.eventdate === eventdate.format("DD/MMM/YYYY"); 
   });
 
-export default class ClubsEvents extends Component {
+export default class ClubsEvents extends Component {  
 
   static defaultProps = {
     backgroundColor: "#37474f",
@@ -240,6 +240,21 @@ setTicketDetailsByCategort = (response) =>{
         </View>
       );
     }
+
+    var   count = Object.keys(this.state.dataSource).length;
+
+    if(count == 0){
+      return (
+      <View style={styles.container}>
+      <Calendar onSelectDate={this.onSelectDate} />
+      <Text style={{textAlign: 'center', color: "#424242", fontSize: 16, fontWeight: '600'}}>
+          No event posted by you :(
+      </Text>
+        
+      </View>
+
+      );
+    }else{
 
     return (
       <View style={styles.container}>
@@ -807,6 +822,7 @@ setTicketDetailsByCategort = (response) =>{
       </ScrollView>
       </View>
     );
+   }
   }
 }
 const styles = StyleSheet.create({ 

@@ -22,6 +22,7 @@ import OfflineNotice from "./screens/OfflineNotice";
 // import { withNavigation } from 'react-navigation';
 // import { NavigationActions } from 'react-navigation';
 import { StackActions, NavigationActions } from 'react-navigation';
+import FlashMessage from "react-native-flash-message";
 
 
 YellowBox.ignoreWarnings(["Warning", "Setting a timer"]);
@@ -73,7 +74,7 @@ class App extends React.Component {
     global.city='mumbai';
     var expoToken = await AsyncStorage.getItem("expoToken");
     if (expoToken == null) {
-      this.registerForPushNotifications();
+      this.registerForPushNotifications(); 
     }
     var showRealApp = await AsyncStorage.getItem("showRealApp");
     console.log("showRealApp: " + JSON.stringify(showRealApp));
@@ -210,6 +211,7 @@ class App extends React.Component {
                   <OfflineNotice />
                   {Platform.OS === "ios" && <StatusBar barStyle="default" />}
                   <AppNavigator />
+                  <FlashMessage position="top" />
                 </View>
               </SafeAreaView>
             </ErrorBoundary>
@@ -227,6 +229,7 @@ class App extends React.Component {
                   <OfflineNotice />
                   {Platform.OS === "ios" && <StatusBar barStyle="default" />}
                   <AppNavigator />
+                  <FlashMessage position="top" />
                 </View>
               </SafeAreaView>
             </ErrorBoundary>

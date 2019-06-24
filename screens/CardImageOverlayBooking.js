@@ -22,8 +22,8 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 
-import GuestListScreen from "./GuestListScreen";
-import BookingScreen from "./BookingScreen";
+//import GuestListScreen from "./GuestListScreen";
+//import BookingScreen from "./BookingScreen";
 
 const mywidth = Dimensions.get("window").width;
 const myheight = Dimensions.get('window').height;

@@ -535,7 +535,7 @@ export default class Profile extends Component {
                     marginRight: 10
                   }}
                 >
-                  <Text style={styles.instructions}>
+                  <Text style={styles.instructions}> 
                     GuestList {"\n"}
                     91springboard, Kagalwala House{"\n"}
                     Bandra Kurla Complex, Mumbai 400098

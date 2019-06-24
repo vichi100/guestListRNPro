@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-  ActivityIndicator,
+  
   Button,
   Clipboard,
   Image,
@@ -13,7 +13,8 @@ import {
   View,
   Dimensions,
   Platform,
-  KeyboardAvoidingView
+  KeyboardAvoidingView,
+  ActivityIndicator
 
 } from 'react-native';
 import { Constants, ImagePicker, Permissions } from 'expo';
@@ -30,7 +31,11 @@ import Dialog from "react-native-dialog";
 
 import { RadioButtons, SegmentedControls } from 'react-native-radio-buttons';
 //https://github.com/hiddentao/react-native-modal-filter-picker
-import ModalFilterPicker from 'react-native-modal-filter-picker'
+// import ModalFilterPicker from 'react-native-modal-filter-picker'
+import ModalFilterPicker from '../modelPicker/ModalFilterPicker';
+import { SERVER_URL } from '../constants';
+import { showMessage, hideMessage } from "react-native-flash-message";
+import { StackActions, NavigationActions } from 'react-navigation';
 
 
 import axios, { post } from 'axios';
@@ -42,7 +47,9 @@ const options = [
   'Club Mgr',
   'PR',
   'DJ',
-];
+]; 
+
+
 
 const optionsCityData = [
   {
@@ -50,7 +57,7 @@ const optionsCityData = [
     label: 'Mumbai',
   },
 
-  {
+  { 
     key: 'delhi',
     label: 'Delhi',
   },
@@ -65,50 +72,10 @@ const optionsCityData = [
     label: 'Bangalore',
   },
 
-]
-
-const optionsData = [
-  {
-    key: 'kenya',
-    label: 'Kenya',
-  },
-  {
-    key: 'uganda',
-    label: 'Uganda',
-  },
-  {
-    key: 'libya',
-    label: 'Libya',
-  },
-  {
-    key: 'morocco',
-    label: 'Morocco',
-  },
-  {
-    key: 'estonia',
-    label: 'Estonia',
-  },
-  {
-    key: 'kenya',
-    label: 'Kenya',
-  },
-  {
-    key: 'uganda',
-    label: 'Uganda',
-  },
-  {
-    key: 'libya',
-    label: 'Libya',
-  },
-  {
-    key: 'morocco',
-    label: 'Morocco', 
-  },
-  {
-    key: 'estonia',
-    label: 'Estonia',
-  },
 ];
+
+
+var eventData = null;
 
 export default class UploadEvent extends Component {
 
@@ -146,8 +113,31 @@ export default class UploadEvent extends Component {
     dialogDescription: null,
     dialogTitle: null,
     city: 'City Name',
+    dataSource: null,
+    isLoading: true,
+    // club details
+    clubid: null,
+    location: null,
+    //city: null,
+    latlong: null,
+    
 
   };
+
+  componentDidMount() {
+    console.log("UploadEvent: clubDetails : ");
+    return axios.get(
+      SERVER_URL+"clubsDetailsForUploadEvent"
+    )
+    .then(response => {
+        console.log("UploadEvent: clubDetails : " + JSON.stringify(response.data));
+        // check if tickets are availbale in guestlist or not
+        response = response.data;
+        this.setState({ dataSource: response, isLoading: false }); 
+
+      })
+
+  }
 
   showDialog = () => {
     this.setState({ dialogVisible: true });
@@ -161,9 +151,14 @@ export default class UploadEvent extends Component {
     this.setState({ dialogVisible: false });
   };
 
-  onShow = () => {
-    console.log('on show') 
-    this.setState({ clubPickerVisible: true });
+  onShow = () => { 
+    try{
+      console.log('on show') 
+      this.setState({ clubPickerVisible: true });
+    }catch (error) {
+      console.log("error in onShow: " + error);
+    }
+    
   }
 
   onShowCity = () => {
@@ -187,11 +182,27 @@ export default class UploadEvent extends Component {
   }
 
   onSelect = (picked) => {
-    console.log('picked: '+picked)
-    this.setState({
-      clubName: picked,
-      clubPickerVisible: false
-    })
+    console.log('picked: '+JSON.stringify(picked));
+    Object.keys(this.state.dataSource).map((keyName, keyIndex) =>{
+
+      if(this.state.dataSource[keyName].clubid == picked ){  
+       console.log('latlong: '+this.state.dataSource[keyName].latlong)
+       this.setState({
+        clubName: this.state.dataSource[keyName].clubname,
+        clubid: this.state.dataSource[keyName].clubid,
+        location: this.state.dataSource[keyName].location,
+        city: this.state.dataSource[keyName].city,
+        latlong: this.state.dataSource[keyName].latlong,
+        clubPickerVisible: false,
+
+       })
+      }
+
+    });
+    // this.setState({ 
+    //   clubName: picked,
+    //   clubPickerVisible: false
+    // })
   }
 
   onCancel = () => {
@@ -242,7 +253,26 @@ export default class UploadEvent extends Component {
     this.setState({ clubName:clubName });
   }
 
-  uploadImageAsync = () => { 
+  uploadImageAsync = async() => {  
+
+    email = await AsyncStorage.getItem("email");
+    mobile = await AsyncStorage.getItem("mobile");
+    var userid = await AsyncStorage.getItem("customerId");
+    var custName = await AsyncStorage.getItem("name");
+    console.log('email : ' + ": " + email);
+    console.log('mobile : ' + ": " + mobile); 
+
+
+    if (email == null || mobile == null || userid == null || custName == null) {  
+      // if (true) {
+      // go to login form
+      console.log('email2 : ' + ": " + email);
+      console.log('mobile2 : ' + ": " + mobile);
+      //this.props.navigation.navigate('BookingScreen', {data:item});
+      this.props.navigation.navigate("LoginScreen", {bookingData: eventData, me:'UploadEvent'}); // move to login page
+      return;
+    } 
+
     //let apiUrl = 'https://file-upload-example-backend-dkhqoilqqn.now.sh/upload';
     console.log('uri: '+this.state.image); 
     let uri = this.state.image;
@@ -251,14 +281,18 @@ export default class UploadEvent extends Component {
     console.log('eventDate: '+this.state.eventdate); 
     let clubName = this.state.clubName;
     console.log('clubName: '+this.state.clubName); 
+    var userid = await AsyncStorage.getItem("customerId");
+    console.log('userid : ' + ": " + userid);
+    var username = await AsyncStorage.getItem("name");
+    console.log('username : ' + ": " + username); 
   
     console.log('uri: '+uri);
 
     if(this.state.image == null){
       this.setState({dialogDescription: 'Please select image for event !'});
       this.showDialog();
-      return;
-    } 
+      return; 
+    }  
 
     if(this.state.eventdate == 'Event Date'){
       this.setState({dialogDescription: 'Please select event date !'});
@@ -303,11 +337,11 @@ export default class UploadEvent extends Component {
       this.showDialog();
       return; 
     } 
-  
     
-    let uriParts = uri.split('.');
+    
+    let uriParts = uri.split('.'); 
     let fileType = uriParts[uriParts.length - 1];
-  
+   
     let data = new FormData();
     data.append('clubName', clubName);
     data.append('eventName', this.state.eventName);
@@ -318,6 +352,15 @@ export default class UploadEvent extends Component {
     data.append('passStagCost', this.state.passStagCost);
     data.append('uploadType', 'eventUpload');
     data.append('uploadBy', this.state.selectedSegment); 
+ 
+    data.append('clubid', this.state.clubid); 
+    data.append('location', this.state.location); 
+    data.append('city', this.state.city); 
+    data.append('latlong', this.state.latlong); 
+    data.append('userid', userid); 
+    data.append('username', username); 
+    
+     
      
 
     data.append('fileData', { 
@@ -335,12 +378,63 @@ export default class UploadEvent extends Component {
       }, 
     }; 
   
-    return fetch(apiUrl, options);
+    //return fetch(apiUrl, options);
+
+    uploadResponse = await fetch(apiUrl, options);
+    //uploadResult = uploadResponse.json();
+    console.log('uploadResponse.json: '+ JSON.stringify(uploadResponse));
+    var x = JSON.stringify(uploadResponse._bodyText)
+    console.log('uploadResponse.json.response: '+ x.response);
+
+    if(uploadResponse._bodyText.indexOf('Saved') > -1 ){
+      showMessage({ 
+        message: "Successfully uploaded", 
+        description: "Please go and verify event for event date  ",
+        type: "success",  
+        duration: 3000,   
+      });
+
+      const resetAction = StackActions.reset({ 
+        index: 0, // <-- currect active route from actions array 
+        actions: [
+          NavigationActions.navigate({ routeName: 'MainTabNavigator' }), 
+        ],
+      });
+      return this.props.navigation.dispatch(resetAction);  
+    }else if(uploadResponse._bodyText.indexOf('Error') > -1 || uploadResponse._bodyText.indexOf('error') > -1){
+      showMessage({ 
+        message: "Error! Please try after some time", 
+        //description: "Please go and verify event for event date  ",
+        type: "error",  
+        duration: 5000,     
+      });
+
+    }else if(uploadResponse._bodyText.indexOf('already posted an event') > -1){ 
+
+      showMessage({ 
+        message: "Already Event is posted by you", 
+        description: "Please go and verify event for event date  ",
+        type: "info",  
+        duration: 5000,   
+      });
+
+    }
   }
 
   
 
   render() {
+
+    if (this.state.isLoading) {
+      return (
+        <View style={{ flex: 1, justifyContent: "center" }}> 
+          <ActivityIndicator size="large" />
+        </View>
+      );
+    }
+
+    setTimeout(() => {}, 200);
+
     let {
       image
     } = this.state;
@@ -436,8 +530,8 @@ export default class UploadEvent extends Component {
           visible={clubPickerVisible}
           onSelect={this.onSelect}
           onCancel={ this.onCancel} 
-          options={optionsData}
-          title='Select Club'
+          options={this.state.dataSource}
+          title='Search by club name'
         />
         </View>
 
@@ -450,11 +544,11 @@ export default class UploadEvent extends Component {
             resizeMode="cover"
             />
         </View>
-        <TouchableOpacity style={{
+        {/* <TouchableOpacity style={{
               flex: 1,
-            }} onPress={this.onShowCity}>
+            }} onPress={this.onShowCity}> */}
         <Text style={styles.textStyle}>{this.state.city}</Text>
-        </TouchableOpacity>
+        {/* </TouchableOpacity> */}
 
         <ModalFilterPicker
           visible={cityPickerVisible}
@@ -1184,7 +1278,7 @@ const styles = StyleSheet.create({
     flex: 1, 
     paddingHorizontal: 10,
     paddingVertical:10,
-    backgroundColor: '#000000',
+    backgroundColor: '#212121',
     color : "#e0e0e0",
     alignItems: 'center'
   },

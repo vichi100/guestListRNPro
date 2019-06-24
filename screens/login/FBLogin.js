@@ -43,6 +43,7 @@ export default class FBLogin extends React.Component {
       email:null,
       id: null,
       expoToken:null,
+      profession: null,
     };
   }
 
@@ -67,11 +68,12 @@ export default class FBLogin extends React.Component {
     try {
       //await AsyncStorage.setItem("mobile", this.state.mobile);
       await AsyncStorage.setItem("email", this.state.email);
-      await AsyncStorage.setItem("name", this.state.name);
+      await AsyncStorage.setItem("name", this.state.name);// user name
       await AsyncStorage.setItem("photoUrl", this.state.photoUrl);
       console.log('FBLogin: photoUrl: '+this.state.photoUrl)
-      await AsyncStorage.setItem("customerId", this.state.id);
+      await AsyncStorage.setItem("customerId", this.state.id); // user id, pr id, dj id , club mgr id
       console.log("store mobile"+ mobile);
+      
     } catch (error) {
       // Error saving data
       console.log('Error in storing data when loging in FB: '+error)
@@ -120,16 +122,23 @@ export default class FBLogin extends React.Component {
     this.setState({ modiMob: myMob });
   };
 
-  insertCustomerDetails=() =>{
+  insertCustomerDetails= async () =>{
+    
+
+    this._storeCustomerData();
+
+    var profession =  await AsyncStorage.getItem("profession"); 
+      console.log("FBLogin: profession"+ profession);
+      this.setState({profession: profession});
+
     var postData = {
       "userid" : this.state.id,
       "mobilenumber":this.state.mobile,
       "email" : this.state.email,
       "name" : this.state.name, 
       "expoToken": this.state.expoToken,
+      "profession": profession, 
     }
-
-    this._storeCustomerData();
 
     // SEND Customer DETAILS TO SERVER -  START
     console.log(" inserting customer" ); 
@@ -141,7 +150,7 @@ export default class FBLogin extends React.Component {
     //   },
     //   body:  JSON.stringify(postData)
     // })
-    return axios.post(SERVER_URL+"insertCustomerDetails", postData, {  
+    return axios.post(SERVER_URL+"insertProfessionalDetails", postData, {  
       headers: {
         'Content-Type': 'application/json',
     },
@@ -162,7 +171,7 @@ export default class FBLogin extends React.Component {
 
   async loginWithFacebook() {
 
-    this._retrieveData();
+    await this._retrieveData();
     if (this.state.mobile == null) {
       this.showDialog();
       return;

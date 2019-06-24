@@ -18,21 +18,21 @@ import {
 
 
 import GuestListScreen from "../screens/GuestListScreen";
-//import PassScreen from "../screens/PassScreen";
-import UploadEvent from "../screens/UploadEvent";
-import UploadOffer from "../screens/UploadOffer"
+import PassScreen from "../screens/PassScreen";
 import ClubsEvents from "../screens/ClubsEvents";
 import BookingScreen from "../screens/BookingScreen";
 import TableScreen from "../screens/TableScreen";
 import TicketDisplayFromTableBooking from "../screens/TicketDisplayFromTableBooking";
 import TabBarIcon from "../components/TabBarIcon";
 import OffersListScreen from "../screens/offers/OffersListScreen";
+import ScanQRCode from "../screens/ScanQRCode";
 import TicketsListScreen from "../screens/tickets/TicketsListScreen";
 import TicketsListScreenX from "../screens/tickets/TicketsListScreen";
 import TicketDisplayScreen from "../screens/ticketDistpay/TicketDisplayScreen";
 import TicketDisplayFromBooking from "../screens/ticketDistpay/TicketDisplayFromBooking";
 import TicketDisplayFromNoLayoutTableBooking from '../screens/TicketDisplayFromNoLayoutTableBooking.js';
 import Ionicons from "@expo/vector-icons/Ionicons";
+import MaterialCommunityIcons from "@expo/vector-icons/Ionicons";
 import Profile from "../screens/profile";
 import DJProfile from "../screens/DJProfile";
 import Search from  "../screens/SearchScreen";
@@ -50,34 +50,35 @@ import InstamojoWebview from '../paymentgetway/InstamojoWebView';
 import PayTmWebView from '../paymentgetway/PayTmWebView';
 import TableScreenNoLayout from '../screens/TableScreenNoLayout';
 import BookingScreenOnlyForGuestList from '../screens/BookingScreenOnlyForGuestList';
-import ScanQRCode from "../screens/ScanQRCode";
+//import ClubsEvents from '../screens/ClubsEvents';
+import UploadEvent from '../screens/UploadEvent'
 
 
-import MainTopTabs from "./TopTabNavigator";
+import MainTopTabs from "./TopTabNavigator"; 
 
 const HomeStack = createStackNavigator({ 
   Home: {
-    screen: MainTopTabs,
+    screen: ClubsEvents,
     navigationOptions: ({ navigation }) => {
       const { navigate } = navigation
       return {
               
       headerTitle: () => ( 
-        // <TouchableWithoutFeedback onPress={() => navigate('SelectCity')}>
+        <TouchableWithoutFeedback onPress={() => navigate('SelectCity')}>
           <View
             style={{ flex: 1, alignItems: "stretch", justifyContent: "center" ,}}
           >
-            <Text style = {{ color:'#eeeeee', fontSize: 16, fontWeight: '500', textAlign: "left"}} >GuestList Pro     </Text> 
+            <Text style = {{ color:'#eeeeee', fontSize: 16, fontWeight: '500', textAlign: "left"}} >{global.city.toUpperCase()}     </Text> 
           </View>
-        // </TouchableWithoutFeedback>
+        </TouchableWithoutFeedback>
       ),
-        // headerRight: (
-        //   <TouchableHighlight onPress={() => navigate('Search')}> 
-        //     <View>
-        //       <Ionicons style={{ marginRight: 10 }} name="ios-search" size={25} color='#eeeeee'/>
-        //     </View>
-        //   </TouchableHighlight>
-        // ),
+        headerRight: (
+          <TouchableHighlight onPress={() => navigate('Search')}> 
+            <View>
+              <Ionicons style={{ marginRight: 10 }} name="ios-search" size={25} color='#eeeeee'/>
+            </View>
+          </TouchableHighlight>
+        ),
        
 
       headerStyle: {
@@ -143,11 +144,11 @@ HomeStack.navigationOptions = {
   
 };
 
-const UploadOfferStack = createStackNavigator({
+const OffersStack = createStackNavigator({
   Offers: {
-    screen: UploadOffer,//OffersListScreen,
+    screen: OffersListScreen,
     navigationOptions: {
-      headerTitle: "Upload Offer",
+      headerTitle: "Offers",
       headerTitleStyle: {
         //fontWeight: 'bold',
         //fontFamily: "Roboto",
@@ -166,7 +167,7 @@ const UploadOfferStack = createStackNavigator({
   }
 });
 
-UploadOfferStack.navigationOptions = {
+OffersStack.navigationOptions = {
   tabBarLabel: "Offers",
   safeAreaInset: {
     top: "never"
@@ -182,47 +183,6 @@ UploadOfferStack.navigationOptions = {
     />
   ),
   // tabBarOptions: {
-  //   activeTintColor: 'tomato',
-  //   inactiveTintColor: 'gray',
-  // },
-};
-
-const UploadEventStack = createStackNavigator({ 
-  //Passes: TicketsListScreen
-  UploadEvent: {
-    screen: UploadEvent,
-    navigationOptions: {
-      headerTitle: "Upload Event",
-      headerTitleStyle: {
-        //fontWeight: 'bold',
-        //fontFamily: "Roboto",
-        textAlign: "left",
-        flex: 1,
-        color:'#fff',
-      },
-      
-      headerStyle: {
-        backgroundColor: "#263238",
-
-        shadowOpacity: 0,
-        borderBottomWidth: 0
-      }
-    }
-  }
-});
-
-UploadEventStack.navigationOptions = {
-  tabBarLabel: "Upload",
-  safeAreaInset: { 
-    top: "never"
-  },
-  tabBarIcon: ({ focused }) => ( 
-    <TabBarIcon
-      focused={focused} 
-      name={Platform.OS === "ios" ? "md-rocket" : "md-rocket"}
-    />
-  ),
-  // tabBarOptions: { 
   //   activeTintColor: 'tomato',
   //   inactiveTintColor: 'gray',
   // },
@@ -270,10 +230,10 @@ ScanQRCodeStack.navigationOptions = {
 };
 
 
-const chatStack = createStackNavigator({ 
+const UploadEventStack = createStackNavigator({ 
   //Passes: TicketsListScreen
   chat: {
-    screen: chat,
+    screen: UploadEvent,
     navigationOptions: {
       headerTitle: "Passes",
       headerTitleStyle: {
@@ -294,15 +254,15 @@ const chatStack = createStackNavigator({
   }
 });
 
-chatStack.navigationOptions = {
-  tabBarLabel: "Chat",
+UploadEventStack.navigationOptions = {
+  tabBarLabel: "Upload",
   safeAreaInset: {
     top: "never"
   },
   tabBarIcon: ({ focused }) => ( 
     <TabBarIcon
       focused={focused}
-      name={Platform.OS === "ios" ? "ios-text" : "ios-text"}
+      name={Platform.OS === "ios" ? "md-rocket" : "md-rocket"}
     />
   ),
   
@@ -317,6 +277,7 @@ const ProfileStack = createStackNavigator({
 
 ProfileStack.navigationOptions = {
   tabBarLabel: "Profile",
+  
   safeAreaInset: {
     top: "never"
   },
@@ -334,10 +295,9 @@ ProfileStack.navigationOptions = {
 
 const Bottom = createBottomTabNavigator({
   HomeStack,
-  UploadOfferStack,
-  UploadEventStack,
-  ///chatStack,
+  OffersStack,
   ScanQRCodeStack,
+  UploadEventStack,
   ProfileStack,
 },
 {
@@ -395,7 +355,7 @@ const AppStack = createStackNavigator({
   TableScreen: TableScreen,
   TableScreenNoLayout: TableScreenNoLayout,
   GuestListScreen: GuestListScreen,
-  //PassScreen: PassScreen,
+  PassScreen: PassScreen,
   PaymentOptions: PaymentOptions,
   InstamojoWebview: InstamojoWebview,
   PayTmWebView:PayTmWebView,

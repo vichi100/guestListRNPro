@@ -7,7 +7,8 @@ import {
   Navigator,
   TouchableOpacity,
   ActivityIndicator,
-  FlatList
+  FlatList,
+  Button,
 } from "react-native";
 
 import Calendar from "./calendar/Calendar";
@@ -55,6 +56,22 @@ export default class DJsListScreen extends Component {
         console.error(error); 
       });
   }
+    
+  _pickImage = async () => { 
+    const {
+      status: cameraRollPerm
+    } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+
+    // only if user allows permission to camera roll
+    if (cameraRollPerm === 'granted') {
+      let pickerResult = await ImagePicker.launchImageLibraryAsync({
+        allowsEditing: true,
+        aspect: [4, 3],
+      });
+
+      this._handleImagePicked(pickerResult);
+    }
+  };
 
   goToDJProfile = item => {
     // const {navigate} = this.props.navigation;
@@ -75,6 +92,10 @@ export default class DJsListScreen extends Component {
 
     return (
       <View style={styles.container}>
+      <Button
+          onPress={this._pickImage}
+          title="Pick an image"
+        />
         <FlatList
           data={this.state.dataSource}
           renderItem={({ item }) => (

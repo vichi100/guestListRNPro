@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "GuestList",
-    "version": "1.0.0",
+    "version": "2.0",
     "slug": "guestlist",
     "privacy": "public",
     "sdkVersion": "32.0.0",
@@ -9,12 +9,11 @@
       "ios",
       "android"
     ],
-    "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "splash": {
       "image": "./assets/images/guestlistsplash.png", 
-      "resizeMode": "contain",
+      "resizeMode": "cover",
       "backgroundColor": "#ffffff"
     },
     "updates": {
@@ -23,12 +22,34 @@
     "assetBundlePatterns": [
       "**/*"
     ],
+    "facebookAppId": "343969116414961",
+    "facebookDisplayName": "GuestList",
+    "facebookScheme": "fb343969116414961",
     "ios": {
-      "supportsTablet": false, 
-      "bundleIdentifier": "com.application.club.guestlist"
+      "supportsTablet": true, 
+      "bundleIdentifier": "com.application.club.guestlist",
+      "buildNumber": "1.0",
+      "infoPlist": {
+        "NSLocationWhenInUseUsageDescription": "GuestList want to use your location to show near by clubs and to navigate you to clubs location"
+      },
+      "config": {
+        "googleSignIn": {
+          "reservedClientId": "com.googleusercontent.apps.260664005963-vvqfanud36e24afoca4s4ov3dctdqj4c"
+        }
+
+      }
     },
     "android": {
-      "package": "com.application.club.guestlist"
+      "package": "com.application.club.guestlist",
+      "versionCode": 36,
+      "config": {
+
+        "googleSignIn": {
+          "apiKey": "AIzaSyC9bHTmDuK4_hlPg8z_mWKiHme_jCos2mc",
+          "certificateHash": "FE:EF:5D:0C:51:03:29:3F:5E:3E:A3:B6:38:FD:30:31:DD:12:72:CD"
+        }
+
+      }
     }
   }
 }

@@ -76,6 +76,8 @@ videourl VARCHAR(100), description VARCHAR(500), music VARCHAR(100), djname VARC
 prid VARCHAR(100), latlong VARCHAR(50), postedby VARCHAR(20));
 
 
+alter table events modify eventid VARCHAR(100) not null;
+
 
 
 INSERT INTO events ( eventname , eventdate , clubid , clubname , location , city , imageurl , videourl , description , music , 
@@ -230,6 +232,14 @@ tablediscountamt VARCHAR(5), tablediscountpercentage VARCHAR(5));
 
 ALTER TABLE offers AUTO_INCREMENT=1000;
 
+alter table offers modify offerid VARCHAR(100) not null;
+
+
+
+ALTER TABLE offers ADD postedbyid VARCHAR(100);
+ALTER TABLE offers ADD postedbyname VARCHAR(100);
+ALTER TABLE offers ADD mobile VARCHAR(15);
+
 INSERT INTO offers (  offertitle ,  offerdetails , offerfor,
 offerimageurl , clubid , 
 clubname , city , latlong , 
@@ -250,6 +260,12 @@ VALUES
  CREATE TABLE customer (userid VARCHAR(100) PRIMARY KEY, customername VARCHAR(100), email VARCHAR(100), 
  mobilenumber VARCHAR(15), expoToken VARCHAR(200));
  userid, email, mobilenumber, firebasetoken
+
+
+
+
+ CREATE TABLE professionals (professionalid  VARCHAR(100) PRIMARY KEY, name VARCHAR(100), email VARCHAR(100), mobile VARCHAR(15),
+ city VARCHAR(50), followers VARCHAR(10), eventscount VARCHAR(10), picurl VARCHAR(500), profession VARCHAR(10), registered VARCHAR(5));
 
 
 userid , customername,  mobilenumber ,  email
@@ -326,6 +342,9 @@ ALTER TABLE ticketdetailsbyclubs ADD postedbyid VARCHAR(50);
 ALTER TABLE ticketdetailsbyclubs ADD postedby VARCHAR(50);
 
 
+ALTER TABLE events ADD postedbyid VARCHAR(100);
+
+
 ------------------------
 
 INSERT INTO eventdetails ( clubid, clubname,djname, music, date, imageURL)
@@ -346,7 +365,7 @@ VALUES
 ('Filmy Friday', '03/May/2019', '1000000' , 'Hoot', 'Juhu', 'mumbai', '/images/club/hootjuhu/event/friday.jpg', NULL, NULL, 
 'Bollywood Music', NULL, NULL, NULL, '19.106205,72.825633' , 'club' , NULL, NULL),
 ('Sinful Saturday', '04/May/2019', '1000000' , 'Hoot', 'Juhu', 'mumbai', '/images/club/hootjuhu/event/saturday.jpg', NULL, NULL, 
-'Bollywood/Hip Hop/Rock Music', NULL, NULL, NULL, '19.106205,72.825633' , 'club' , NULL, NULL),
+'Bollywood/Hip Hop/Rock Music', NULL, NULL, NULL, '19.106205,72.825633' , 'club' , NULL, NULL), 
 
 
 ('Sufi Night', '01/May/2019', '999999' , 'Tippling Street', 'Juhu', 'mumbai', '/images/club/tipplingstreetjuhu/event/wednesday.jpg', NULL, NULL, 
